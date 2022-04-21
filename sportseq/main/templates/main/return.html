@@ -1,0 +1,50 @@
+{% extends "main/base.html" %} 
+{% block title %} Return Items Page {% endblock%} 
+{% block content %}
+
+<form method="post" action="#">
+  {% csrf_token %} 
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Item</th>
+      <th scope="col">Borrower</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  {% for item in ls %}
+  <tbody>
+    {% if item.isBorrowed %}
+    <tr>
+      <th scope="row">{{item.id}}</th>
+      <td>{{item.name}}</td>
+      <td>
+          {% for user in users %}
+                {% if user.id == item.user %}
+                  {{user.name}}({{user.rollNo}})
+                {% endif %}
+          {% endfor %}
+      </td>
+      <td>
+          <div class="input-group-prepend">
+            <button
+              type="submit"
+              name="c{{item.id}}"
+              value="return"
+              class="btn btn-success"
+            >
+              Return
+            </button>
+          </div>
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+  {% endfor %}
+</table>
+</form>
+{% endblock %}
+
+
+

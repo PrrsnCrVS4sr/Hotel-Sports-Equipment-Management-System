@@ -1,0 +1,54 @@
+{% extends "main/base.html" %} {% block title %} Lend Items Page {% endblock %} 
+
+{% block content %}
+<form method="post" action="#">
+  {% csrf_token %} 
+  {% for item in ls %}
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+     
+        {% if not item.isBorrowed  %}
+       <div class="input-group-text ">
+        {{item.name}}
+        <div class="input-group mb-3 p-3">
+          <input type="text" name="c{{item.id}}"/>
+         
+          <div class="input-group-prepend">
+            <button
+              type="submit"
+              name="lend"
+              value="lend"
+              class="btn btn-success"
+            >
+              Lend
+            </button>
+          </div>
+        </div>
+      </div>
+        {% endif %}
+      
+    </div>
+
+    
+  </div>
+
+  {% endfor %}
+
+  
+  
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
