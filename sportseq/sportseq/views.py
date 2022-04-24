@@ -9,8 +9,18 @@ from rest_framework import status
 
 from sportseq import serializers
 
+null = None
 
 # Requests for Sport Items
+
+
+def verifyData(data):
+    if data['isBorrowed'] == False or data['user'] == null:
+        data['user'] = null
+        data['isBorrowed'] = False
+    return data
+
+
 @api_view(['GET', 'POST'])
 def sportItemGetPost(request):
     # For recieving the status of all items
@@ -20,7 +30,8 @@ def sportItemGetPost(request):
         return Response(serializer.data)
     # For adding an item(not done via frontend)
     if request.method == 'POST':
-        serializer = SportItemSerializer(data=request.data)
+        data = verifyData(request.data)
+        serializer = SportItemSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -38,7 +49,8 @@ def sportItemGetPutDelete(request, id):
         serializer = SportItemSerializer(item)
         return Response(serializer.data)
     elif request.method == "PUT":
-        serializer = SportItemSerializer(item, data=request.data)
+        data = verifyData(request.data)
+        serializer = SportItemSerializer(item, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

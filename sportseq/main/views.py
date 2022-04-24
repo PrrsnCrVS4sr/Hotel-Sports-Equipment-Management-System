@@ -5,8 +5,6 @@ import requests
 import json
 # Create your views here.
 
-null = None
-
 
 def home(response):
     return render(response, "main/home.html")
@@ -20,7 +18,6 @@ def lendItem(response):
     users = requestUsers.json()
     if response.method == "POST":
         if response.POST.get("lend"):
-
             for item in ls:
                 for user in users:
                     if response.POST.get("c"+str(item['id'])) == str(user['rollNo']):
@@ -28,7 +25,7 @@ def lendItem(response):
                         item['isBorrowed'] = True
                         item['user'] = user['id']
                         requests.put("http://127.0.0.1:8000/items/"+str(item['id']),
-                                     data=item)
+                                     json=item)
     return render(response, "main/lend.html", {"ls": ls})
 
 
@@ -42,8 +39,6 @@ def returnItem(response):
         for item in ls:
             if response.POST.get("c"+str(item['id'])) == "return":
                 item['isBorrowed'] = False
-                item['user'] = null
-
                 requests.put("http://127.0.0.1:8000/items/"+str(item['id']),
                              json=item)
 
