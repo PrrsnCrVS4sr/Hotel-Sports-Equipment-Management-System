@@ -13,11 +13,12 @@ from sportseq import serializers
 # Requests for Sport Items
 @api_view(['GET', 'POST'])
 def sportItemGetPost(request):
+    # For recieving the status of all items
     if request.method == "GET":
         items = SportItem.objects.all()
         serializer = SportItemSerializer(items, many=True)
         return Response(serializer.data)
-
+    # For adding an item(not done via frontend)
     if request.method == 'POST':
         serializer = SportItemSerializer(data=request.data)
         if serializer.is_valid():
