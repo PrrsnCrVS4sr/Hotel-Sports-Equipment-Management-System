@@ -21,7 +21,7 @@
       <td>{{item.name}}</td>
       <td>
           {% for user in users %}
-                {% if user.id == item.user %}
+                {% if user.rollNo == item.user %}
                   {{user.name}}({{user.rollNo}})
                 {% endif %}
           {% endfor %}
@@ -30,8 +30,8 @@
           <div class="input-group-prepend">
             <button
               type="submit"
-              name="c{{item.id}}"
-              value="return"
+              name="return"
+              value="{{item.name}}"
               class="btn btn-success"
             >
               Return

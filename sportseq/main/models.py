@@ -8,7 +8,7 @@ from numpy import roll, true_divide
 
 class User(models.Model):
     name = models.CharField(max_length=200)
-    rollNo = models.IntegerField()
+    rollNo = models.IntegerField(unique=True, primary_key=True)
 
     def __str__(self):
         return self.name
@@ -16,10 +16,10 @@ class User(models.Model):
 
 class SportItem(models.Model):
     name = models.CharField(max_length=200)
-    isBorrowed = models.BooleanField()
+    isBorrowed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True)
+        User, to_field="rollNo", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name

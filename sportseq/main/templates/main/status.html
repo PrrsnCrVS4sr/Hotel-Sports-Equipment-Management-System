@@ -19,9 +19,9 @@
       <td>{{item.isBorrowed}}</td>
       
       <td>
-        {% if item.isBorrowed %}
+        {% if item.isBorrowed == True %}
           {% for user in users %}
-                {% if user.id == item.user %}
+                {% if user.rollNo == item.user %}
                   {{user.name}}({{user.rollNo}})
                   
                 {% endif %}

@@ -21,8 +21,11 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
-    path('items/', views.sportItemGetPost),
-    path('items/<int:id>', views.sportItemGetPutDelete),
+    path('items/lend', views.sport_item_lend),
+    path('items/return', views.sport_item_return),
+    path('items/status', views.sport_item_status),
+    path('items/add', views.sport_item_add),
+    path('items/<int:id>', views.sport_item_delete),
     path('users/', views.userGetPost),
     path('users/<int:id>', views.userGetPutDelete)
 
